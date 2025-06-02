@@ -21,13 +21,13 @@
             </link>
         </model>
         <model name="red_sphere">
-            <pose>2 0 0.3 0 0 0</pose>
+            <pose>5 0 0.3 0 0 0</pose>
             <static>true</static>
             <link name="link">
                 <visual name="visual">
                     <geometry>
                         <sphere>
-                            <radius>0.2</radius>
+                            <radius>0.5</radius>
                         </sphere>
                     </geometry>
                     <material>
@@ -39,7 +39,7 @@
                 <collision name="collision">
                     <geometry>
                         <sphere>
-                            <radius>0.2</radius>
+                            <radius>0.5</radius>
                         </sphere>
                     </geometry>
                 </collision>
@@ -95,10 +95,8 @@
         <plugin
             filename="ignition-gazebo-buoyancy-system"
             name="ignition::gazebo::systems::Buoyancy">
-            <!-- <uniform_fluid_density>1000</uniform_fluid_density> -->
             <graded_buoyancy>
                 <default_density>1000</default_density>
-                <!-- z 좌표 0 이상부터는 밀도 1 -->
                 <density_change>
                     <above_depth>0</above_depth> 
                     <density>1</density>
@@ -123,7 +121,7 @@
                     </geometry>
                 </visual>
                 <inertial>
-                    <pose>0.0012 0 -0.05 0 0 0</pose> <!-- 무게 중심을 아래로 -->
+                    <pose>0.0012 0 -0.05 0 0 0</pose>
                     <mass>100</mass>
                     <inertia>
                         <ixx>1.9833</ixx>
@@ -158,9 +156,6 @@
                 </sensor>
             </link>
 
-
-
-            <!-- thruster_L link -->
             <link name="thruster_L">
                 <pose>-0.525 -0.15 0 0 1.57 0</pose>
                 <collision name="collision">
@@ -195,7 +190,6 @@
                 </inertial>
             </link>
 
-            <!-- thruster_L <-> base_link joint -->
             <joint name="joint_propeller_port_L" type="revolute">
                 <pose>0 0 0 0 0 0</pose>
                 <parent>base_link</parent>
@@ -205,7 +199,6 @@
                 </axis>
             </joint>
 
-            <!-- thruster_R link -->
             <link name="thruster_R">
                 <pose>-0.525 0.15 0 0 1.57 0</pose>
                 <collision name="collision">
@@ -240,7 +233,7 @@
                 </inertial>
 
             </link>
-            <!-- thruster_R <-> base_link joint -->
+
             <joint name="joint_propeller_port_R" type="revolute">
                 <pose>0 0 0 0 0 0</pose>
                 <parent>base_link</parent>
@@ -250,19 +243,11 @@
                 </axis>
             </joint>
 
-
             <joint name="camera_joint" type="fixed">
                 <parent>base_link</parent>
                 <child>camera_link</child>
             </joint>
 
-
-
-
-
-
-
-                        <!-- Hydrodynamics plugin -->
             <plugin
                 filename="ignition-gazebo-hydrodynamics-system"
                 name="ignition::gazebo::systems::Hydrodynamics">
@@ -286,7 +271,7 @@
                 <nRabsR>-6.32698957</nRabsR>
                 <nR>-1</nR>
             </plugin>
-                        <!-- Thruster plugin -->
+            
             <plugin
                 filename="ignition-gazebo-thruster-system"
                 name="ignition::gazebo::systems::Thruster">
@@ -307,14 +292,11 @@
                 <fluid_density>1000</fluid_density>
                 <propeller_diameter>0.4</propeller_diameter>
             </plugin>
-            <!-- <plugin filename="ignition-gazebo-camera-system"
-                    name="ignition::gazebo::systems::CameraSensor">
-            </plugin> -->
-            
+        
             <plugin
             filename="ignition-gazebo-sensors-system"
             name="ignition::gazebo::systems::Sensors">
-            <render_engine>ogre1</render_engine>
+            <render_engine>ogre2</render_engine>
             </plugin>
         </model>
     </world>
